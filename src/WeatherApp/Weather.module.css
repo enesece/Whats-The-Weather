@@ -1,0 +1,165 @@
+* {
+  transition: background-color 0.5s ease, color 0.5s ease,
+    border-color 0.5s ease;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  font-family: "Arial", sans-serif;
+}
+
+.topHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.topHeader h3 {
+  margin: 0;
+  font-size: 22px;
+}
+
+.themeBtn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.5s ease;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.themeBtn:hover {
+  transform: scale(1.1);
+}
+
+.weatherCard {
+  width: 1000px;
+  max-width: 90%;
+  height: 600px;
+  background: white;
+  border-radius: 40px;
+  display: flex;
+  overflow: hidden;
+}
+
+.weatherLeft {
+  width: 30%;
+  background-color: white;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-right: 1px solid #f0f0f0;
+}
+
+.searchBar {
+  display: flex;
+  align-items: center;
+  background-color: #f6f6f8;
+  border-radius: 15px;
+  padding: 10px 15px;
+  margin-bottom: 20px;
+}
+
+.searchBar input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-size: 14px;
+  color: #333;
+}
+
+.searchBar button {
+  background: white;
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 12px;
+}
+
+.weatherInfo {
+  text-align: center;
+  margin-bottom: auto;
+  padding-top: 30px;
+}
+
+.loadingText {
+  color: orange;
+  font-weight: bold;
+  text-align: center;
+}
+
+.weatherRight {
+  width: 70%;
+  background-color: #f6f6f8;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+}
+
+.weatherRight h3 {
+  margin-bottom: 25px;
+  font-size: 22px;
+  color: #333;
+}
+
+.highlightsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  width: 100%;
+}
+
+.highlightsCard {
+  background: white;
+  padding: 20px;
+  border-radius: 20px;
+  border-bottom: 1.5px solid #f0534f;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 140px;
+  transition: transform 0.2s ease;
+}
+
+.highlightsCard:hover {
+  transform: translateY(-5px);
+}
+
+.highlightsCard h4 {
+  color: #c4c4c4;
+  margin: 0;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.highlightsCard h1 {
+  font-size: 32px;
+  margin: 10px 0;
+  color: #333;
+}
+
+.highlightsCard p {
+  font-size: 12px;
+  color: #888;
+  margin: 0;
+}
