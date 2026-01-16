@@ -7,16 +7,13 @@ function Weather() {
   const [loading, setLoading] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
 
-  const API_KEY = import.meta.env.VITE_WEATHER_API_KEY;
-
   const getWeather = async () => {
     if (city === "") return;
 
     setLoading(true);
 
     try {
-      const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric&lang=eng`;
-      const weatherRes = await fetch(weatherUrl);
+      const weatherRes = await fetch(`/.netlify/functions/api?city=${city}`);
       const weatherData = await weatherRes.json();
       setWeather(weatherData);
     } catch (error) {
@@ -30,8 +27,7 @@ function Weather() {
       setLoading(true);
 
       try {
-        const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=Istanbul&appid=${API_KEY}&units=metric&lang=eng`;
-        const weatherRes = await fetch(weatherUrl);
+        const weatherRes = await fetch(`/.netlify/functions/api?city=Istanbul`);
         const weatherData = await weatherRes.json();
         setWeather(weatherData);
         setCity("Istanbul");
