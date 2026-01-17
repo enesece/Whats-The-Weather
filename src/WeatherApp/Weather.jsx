@@ -7,13 +7,17 @@ function Weather() {
   const [loading, setLoading] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
 
+  const API_KEY = import.meta.env.VITE_WEATHER_API_KEY;
+
   const getWeather = async () => {
     if (city === "") return;
 
     setLoading(true);
 
     try {
-      const weatherRes = await fetch(`/.netlify/functions/api?city=${city}`);
+      // Fetch Current Weather
+      const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric&lang=eng`;
+      const weatherRes = await fetch(weatherUrl);
       const weatherData = await weatherRes.json();
       setWeather(weatherData);
     } catch (error) {
@@ -27,7 +31,9 @@ function Weather() {
       setLoading(true);
 
       try {
-        const weatherRes = await fetch(`/.netlify/functions/api?city=Istanbul`);
+        // Fetch Current Weather for Default City
+        const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=Istanbul&appid=${API_KEY}&units=metric&lang=eng`;
+        const weatherRes = await fetch(weatherUrl);
         const weatherData = await weatherRes.json();
         setWeather(weatherData);
         setCity("Istanbul");
@@ -61,8 +67,11 @@ function Weather() {
     cardItemBg: isDarkMode ? "#333" : "white",
     subText: isDarkMode ? "#bbb" : "gray",
     weatherShadow: isDarkMode
-      ? "0 30px 60px hsl(1, 84%, 63%, 0.06)"
-      : "0 30px 60px hsl(1, 84%, 63%, 0.08)",
+      ? "0 30px 60px hsl(1, 84%, 63%, 0.01)"
+      : "0 30px 60px hsl(1, 84%, 63%, 0.07)",
+    cardShadow: isDarkMode
+      ? "0 4px 15px hsl(1, 84%, 63%, 0.05)"
+      : "0 4px 15px hsl(1, 84%, 63%, 0.08)",
   };
 
   return (
@@ -87,6 +96,7 @@ function Weather() {
             style={{
               backgroundColor: themeStyles.rightSideBg,
               borderBottom: "1.5px solid #f0534f",
+              boxShadow: themeStyles.weatherShadow,
             }}
           >
             <input
@@ -162,7 +172,10 @@ function Weather() {
               {/*---- WIND ----*/}
               <div
                 className={styles.highlightsCard}
-                style={{ backgroundColor: themeStyles.cardItemBg }}
+                style={{
+                  backgroundColor: themeStyles.cardItemBg,
+                  boxShadow: themeStyles.cardShadow,
+                }}
               >
                 <h4 style={{ color: themeStyles.subText }}>Wind</h4>
                 <h1 style={{ color: themeStyles.textColor }}>
@@ -181,7 +194,10 @@ function Weather() {
               {/*---- HUMIDITY ----*/}
               <div
                 className={styles.highlightsCard}
-                style={{ backgroundColor: themeStyles.cardItemBg }}
+                style={{
+                  backgroundColor: themeStyles.cardItemBg,
+                  boxShadow: themeStyles.cardShadow,
+                }}
               >
                 <h4 style={{ color: themeStyles.subText }}>Humidity</h4>
                 <h1 style={{ color: themeStyles.textColor }}>
@@ -196,7 +212,10 @@ function Weather() {
               {/*---- FEELS LIKE ----*/}
               <div
                 className={styles.highlightsCard}
-                style={{ backgroundColor: themeStyles.cardItemBg }}
+                style={{
+                  backgroundColor: themeStyles.cardItemBg,
+                  boxShadow: themeStyles.cardShadow,
+                }}
               >
                 <h4 style={{ color: themeStyles.subText }}>Feels like</h4>
                 <h1 style={{ color: themeStyles.textColor }}>
@@ -208,7 +227,10 @@ function Weather() {
               {/*---- VISIBILITY ----*/}
               <div
                 className={styles.highlightsCard}
-                style={{ backgroundColor: themeStyles.cardItemBg }}
+                style={{
+                  backgroundColor: themeStyles.cardItemBg,
+                  boxShadow: themeStyles.cardShadow,
+                }}
               >
                 <h4 style={{ color: themeStyles.subText }}>Visibility</h4>
                 <h1 style={{ color: themeStyles.textColor }}>
@@ -227,7 +249,10 @@ function Weather() {
               {/*---- PRESSURE ----*/}
               <div
                 className={styles.highlightsCard}
-                style={{ backgroundColor: themeStyles.cardItemBg }}
+                style={{
+                  backgroundColor: themeStyles.cardItemBg,
+                  boxShadow: themeStyles.cardShadow,
+                }}
               >
                 <h4 style={{ color: themeStyles.subText }}>Pressure</h4>
                 <h1 style={{ color: themeStyles.textColor }}>
