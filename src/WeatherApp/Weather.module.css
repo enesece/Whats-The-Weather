@@ -19,8 +19,8 @@
 }
 
 .weatherCard {
-  width: 100%;
-  max-width: 1000px;
+  width: 1200px;
+  max-width: 100%;
   min-height: 600px;
   height: auto;
   background: white;
@@ -31,21 +31,31 @@
 }
 
 .weatherLeft {
-  width: 35%;
+  width: 25%;
   background-color: white;
   padding: 30px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
+  align-items: center;
   border-right: 1px solid #f0f0f0;
 }
 
-.weatherRight {
-  width: 65%;
+.weatherMiddle {
+  width: 55%;
   background-color: #f6f6f8;
   padding: 30px;
   display: flex;
   flex-direction: column;
+}
+
+.weatherForecast {
+  width: 20%;
+  background-color: white;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  border-left: 1px solid #f0f0f0;
 }
 
 .searchBar {
@@ -75,36 +85,31 @@
   height: 30px;
   cursor: pointer;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  flex-shrink: 0;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 .weatherInfo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   text-align: center;
-  margin: 20px 0;
+  width: 100%;
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-bottom: 40px;
 }
 
 .weatherInfo img {
-  width: 150px;
-  height: auto;
+  width: 140px;
 }
 
 .weatherInfo h1 {
-  font-size: clamp(45px, 10vw, 70px);
+  font-size: clamp(40px, 8vw, 65px);
   margin: 0;
-}
-
-.weatherInfo h2 {
-  font-size: 24px;
-  margin: 10px 0;
-}
-
-.weatherInfo p {
-  font-size: 18px;
-  color: gray;
-  text-transform: capitalize;
+  line-height: 1;
 }
 
 .topHeader {
@@ -123,12 +128,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-shrink: 0;
 }
 
 .highlightsGrid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 15px;
   width: 100%;
 }
@@ -137,66 +141,101 @@
   background: white;
   padding: 15px;
   border-radius: 20px;
-  height: 130px;
+  min-height: 125px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   border-bottom: 1.5px solid #f0534f;
 }
 
-.highlightsCard h4 {
-  color: #c4c4c4;
-  margin: 0;
-  font-size: 14px;
+.sunContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+  width: 100%;
 }
 
-.highlightsCard h1 {
-  font-size: 28px;
-  margin: 5px 0;
+.sunItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
-@media (max-width: 900px) {
+.forecastList {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.forecastItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 10px;
+}
+
+.forecastItem img {
+  width: 40px;
+}
+
+.iconContainer {
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.forecastIcon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px 0;
+}
+
+@media (max-width: 1100px) {
   .weatherCard {
     flex-direction: column;
-    max-width: 500px;
-    border-radius: 25px;
+    max-width: 600px;
   }
-
   .weatherLeft,
-  .weatherRight {
+  .weatherMiddle,
+  .weatherForecast {
     width: 100%;
-    border-right: none;
+    border: none;
   }
-
   .weatherLeft {
     border-bottom: 1px solid #f0f0f0;
-    padding: 30px;
+    height: auto;
+    padding-bottom: 40px;
   }
-
-  .weatherRight {
-    padding: 30px;
+  .weatherInfo {
+    margin-top: 20px;
+    margin-bottom: 0;
   }
-
-  .highlightsGrid {
-    grid-template-columns: repeat(2, 1fr);
+  .weatherForecast {
+    border-top: 1px solid #f0f0f0;
+  }
+  .forecastList {
+    flex-direction: row;
+    justify-content: space-around;
+  }
+  .forecastItem {
+    flex-direction: column;
+    text-align: center;
   }
 }
 
-@media (max-width: 500px) {
-  .container {
-    padding: 10px;
-  }
-
+@media (max-width: 600px) {
   .highlightsGrid {
     grid-template-columns: 1fr;
   }
-
-  .weatherLeft,
-  .weatherRight {
-    padding: 20px;
+  .highlightsCard {
+    grid-column: span 1 !important;
   }
-
-  .weatherInfo h1 {
-    font-size: 50px;
+  .forecastList {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
   }
 }
