@@ -11,11 +11,8 @@ function Weather() {
 
   const getWeather = async () => {
     if (city === "") return;
-
     setLoading(true);
-
     try {
-      // Fetch Current Weather
       const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric&lang=eng`;
       const weatherRes = await fetch(weatherUrl);
       const weatherData = await weatherRes.json();
@@ -29,9 +26,7 @@ function Weather() {
   useEffect(() => {
     const loadDefaultCity = async () => {
       setLoading(true);
-
       try {
-        // Fetch Current Weather for Default City
         const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=Istanbul&appid=${API_KEY}&units=metric&lang=eng`;
         const weatherRes = await fetch(weatherUrl);
         const weatherData = await weatherRes.json();
@@ -42,7 +37,6 @@ function Weather() {
       }
       setLoading(false);
     };
-
     loadDefaultCity();
   }, []);
 
@@ -52,7 +46,6 @@ function Weather() {
     } else {
       document.body.style.backgroundColor = "hsl(0, 0%, 95%)";
     }
-
     document.body.style.transition = "background-color 0.5s ease";
   }, [isDarkMode]);
 
@@ -83,7 +76,6 @@ function Weather() {
           boxShadow: themeStyles.weatherShadow,
         }}
       >
-        {/* --- LEFT SIDE --- */}
         <div
           className={styles.weatherLeft}
           style={{
@@ -122,30 +114,18 @@ function Weather() {
               <img
                 src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}@4x.png`}
                 alt="ikon"
-                style={{ width: "150px" }}
               />
-              <h1 style={{ fontSize: "70px", margin: "0" }}>
-                {Math.round(weather.main.temp)}°
-              </h1>
-              <h2 style={{ fontSize: "24px", margin: "10px 0" }}>
+              <h1>{Math.round(weather.main.temp)}°</h1>
+              <h2>
                 {weather.name}, {weather.sys.country}
               </h2>
-              <p
-                style={{
-                  textTransform: "capitalize",
-                  color: "gray",
-                  fontSize: "18px",
-                }}
-              >
-                {weather.weather[0].description}
-              </p>
+              <p>{weather.weather[0].description}</p>
             </div>
           ) : (
             <h3 style={{ color: themeStyles.textColor }}>No data found.</h3>
           )}
         </div>
 
-        {/* --- RIGHT SIDE --- */}
         <div
           className={styles.weatherRight}
           style={{
@@ -154,7 +134,6 @@ function Weather() {
         >
           <div className={styles.topHeader}>
             <h3 style={{ color: themeStyles.textColor }}>Details</h3>
-
             <button
               className={styles.themeBtn}
               onClick={toggleTheme}
@@ -169,7 +148,6 @@ function Weather() {
 
           {weather && weather.main && (
             <div className={styles.highlightsGrid}>
-              {/*---- WIND ----*/}
               <div
                 className={styles.highlightsCard}
                 style={{
@@ -183,7 +161,7 @@ function Weather() {
                   <span
                     style={{ fontSize: "16px", color: themeStyles.subText }}
                   >
-                    km/s
+                    m/s
                   </span>
                 </h1>
                 <p style={{ color: themeStyles.subText }}>
@@ -191,7 +169,6 @@ function Weather() {
                 </p>
               </div>
 
-              {/*---- HUMIDITY ----*/}
               <div
                 className={styles.highlightsCard}
                 style={{
@@ -209,7 +186,6 @@ function Weather() {
                 </p>
               </div>
 
-              {/*---- FEELS LIKE ----*/}
               <div
                 className={styles.highlightsCard}
                 style={{
@@ -221,10 +197,9 @@ function Weather() {
                 <h1 style={{ color: themeStyles.textColor }}>
                   {Math.round(weather.main.feels_like)}°
                 </h1>
-                <p style={{ color: themeStyles.subText }}>Tempature</p>
+                <p style={{ color: themeStyles.subText }}>Temperature</p>
               </div>
 
-              {/*---- VISIBILITY ----*/}
               <div
                 className={styles.highlightsCard}
                 style={{
@@ -246,7 +221,6 @@ function Weather() {
                 </p>
               </div>
 
-              {/*---- PRESSURE ----*/}
               <div
                 className={styles.highlightsCard}
                 style={{

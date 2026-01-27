@@ -1,5 +1,10 @@
 * {
-  transition: background-color 0.5s ease, color 0.5s ease,
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  transition:
+    background-color 0.5s ease,
+    color 0.5s ease,
     border-color 0.5s ease;
 }
 
@@ -8,58 +13,39 @@
   justify-content: center;
   align-items: center;
   min-height: 100vh;
+  width: 100%;
   font-family: "Arial", sans-serif;
-}
-
-.topHeader {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 25px;
-}
-
-.topHeader h3 {
-  margin: 0;
-  font-size: 22px;
-}
-
-.themeBtn {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  border: none;
-  cursor: pointer;
-  font-size: 20px;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transition: all 0.5s ease;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-
-.themeBtn:hover {
-  transform: scale(1.1);
+  padding: 15px;
 }
 
 .weatherCard {
-  width: 1000px;
-  max-width: 90%;
-  height: 600px;
+  width: 100%;
+  max-width: 1000px;
+  min-height: 600px;
+  height: auto;
   background: white;
   border-radius: 40px;
   display: flex;
+  flex-direction: row;
   overflow: hidden;
 }
 
 .weatherLeft {
-  width: 30%;
+  width: 35%;
   background-color: white;
-  padding: 40px;
+  padding: 30px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   border-right: 1px solid #f0f0f0;
+}
+
+.weatherRight {
+  width: 65%;
+  background-color: #f6f6f8;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
 }
 
 .searchBar {
@@ -67,8 +53,9 @@
   align-items: center;
   background-color: #f6f6f8;
   border-radius: 15px;
-  padding: 10px 15px;
+  padding: 8px 12px;
   margin-bottom: 20px;
+  width: 100%;
 }
 
 .searchBar input {
@@ -77,7 +64,7 @@
   border: none;
   outline: none;
   font-size: 14px;
-  color: #333;
+  width: 100%;
 }
 
 .searchBar button {
@@ -88,77 +75,128 @@
   height: 30px;
   cursor: pointer;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  flex-shrink: 0;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 12px;
 }
 
 .weatherInfo {
   text-align: center;
-  margin-bottom: auto;
-  padding-top: 30px;
+  margin: 20px 0;
 }
 
-.loadingText {
-  color: orange;
-  font-weight: bold;
-  text-align: center;
+.weatherInfo img {
+  width: 150px;
+  height: auto;
 }
 
-.weatherRight {
-  width: 70%;
-  background-color: #f6f6f8;
-  padding: 40px;
+.weatherInfo h1 {
+  font-size: clamp(45px, 10vw, 70px);
+  margin: 0;
+}
+
+.weatherInfo h2 {
+  font-size: 24px;
+  margin: 10px 0;
+}
+
+.weatherInfo p {
+  font-size: 18px;
+  color: gray;
+  text-transform: capitalize;
+}
+
+.topHeader {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
 }
 
-.weatherRight h3 {
-  margin-bottom: 25px;
-  font-size: 22px;
-  color: #333;
+.themeBtn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
 }
 
 .highlightsGrid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
+  gap: 15px;
   width: 100%;
 }
 
 .highlightsCard {
   background: white;
-  padding: 20px;
+  padding: 15px;
   border-radius: 20px;
-  border-bottom: 1.5px solid #f0534f;
-
+  height: 130px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 140px;
-  transition: transform 0.2s ease;
-}
-
-.highlightsCard:hover {
-  transform: translateY(-5px);
+  border-bottom: 1.5px solid #f0534f;
 }
 
 .highlightsCard h4 {
   color: #c4c4c4;
   margin: 0;
   font-size: 14px;
-  font-weight: 500;
 }
 
 .highlightsCard h1 {
-  font-size: 32px;
-  margin: 10px 0;
-  color: #333;
+  font-size: 28px;
+  margin: 5px 0;
 }
 
-.highlightsCard p {
-  font-size: 12px;
-  color: #888;
-  margin: 0;
+@media (max-width: 900px) {
+  .weatherCard {
+    flex-direction: column;
+    max-width: 500px;
+    border-radius: 25px;
+  }
+
+  .weatherLeft,
+  .weatherRight {
+    width: 100%;
+    border-right: none;
+  }
+
+  .weatherLeft {
+    border-bottom: 1px solid #f0f0f0;
+    padding: 30px;
+  }
+
+  .weatherRight {
+    padding: 30px;
+  }
+
+  .highlightsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 500px) {
+  .container {
+    padding: 10px;
+  }
+
+  .highlightsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .weatherLeft,
+  .weatherRight {
+    padding: 20px;
+  }
+
+  .weatherInfo h1 {
+    font-size: 50px;
+  }
 }
