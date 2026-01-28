@@ -1,13 +1,18 @@
 import React, { useState, useEffect } from "react";
 import ReactAnimatedWeather from "react-animated-weather";
 import styles from "./Weather.module.css";
+import { translations } from "../translations";
 
 function Weather() {
   const [city, setCity] = useState("");
   const [weather, setWeather] = useState(null);
   const [forecast, setForecast] = useState([]);
+
   const [loading, setLoading] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
+
+  const [language, setLanguage] = useState("en");
+  const t = translations[language];
 
   const API_KEY = import.meta.env.VITE_WEATHER_API_KEY;
 
@@ -28,12 +33,12 @@ function Weather() {
     if (searchCity === "") return;
     setLoading(true);
     try {
-      const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${searchCity}&appid=${API_KEY}&units=metric&lang=eng`;
+      const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${searchCity}&appid=${API_KEY}&units=metric&lang=${language === "tr" ? "tr" : "en"}`;
       const weatherRes = await fetch(weatherUrl);
       const weatherData = await weatherRes.json();
       setWeather(weatherData);
 
-      const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${searchCity}&appid=${API_KEY}&units=metric&lang=eng`;
+      const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${searchCity}&appid=${API_KEY}&units=metric&lang=${language === "tr" ? "tr" : "en"}`;
       const forecastRes = await fetch(forecastUrl);
       const forecastData = await forecastRes.json();
 
@@ -51,6 +56,12 @@ function Weather() {
     getWeather("Istanbul");
     setCity("Istanbul");
   }, []);
+
+  useEffect(() => {
+    if (weather && weather.name) {
+      getWeather(weather.name);
+    }
+  }, [language]);
 
   useEffect(() => {
     document.body.style.backgroundColor = isDarkMode
@@ -110,7 +121,7 @@ function Weather() {
           >
             <input
               type="text"
-              placeholder="Search..."
+              placeholder={t.searchPlaceholder}
               value={city}
               onChange={(e) => setCity(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && getWeather()}
@@ -120,7 +131,7 @@ function Weather() {
           </div>
 
           {loading ? (
-            <h2 className={styles.loadingText}>Loading...</h2>
+            <h2 className={styles.loadingText}>{t.loading}</h2>
           ) : weather && weather.main ? (
             <div
               className={styles.weatherInfo}
@@ -150,17 +161,33 @@ function Weather() {
           style={{ backgroundColor: themeStyles.rightSideBg }}
         >
           <div className={styles.topHeader}>
-            <h3 style={{ color: themeStyles.textColor }}>Details</h3>
-            <button
-              className={styles.themeBtn}
-              onClick={toggleTheme}
-              style={{
-                backgroundColor: isDarkMode ? "white" : "#333",
-                color: isDarkMode ? "#333" : "white",
-              }}
-            >
-              {isDarkMode ? "☀️" : "🌙"}
-            </button>
+            <h3 style={{ color: themeStyles.textColor }}>{t.details}</h3>
+
+            <div className={styles.controlsGroup}>
+              <button
+                className={styles.themeBtn}
+                onClick={() => setLanguage(language === "en" ? "tr" : "en")}
+                style={{
+                  backgroundColor: isDarkMode ? "white" : "#333",
+                  color: isDarkMode ? "#333" : "white",
+                  fontWeight: "bold",
+                  fontSize: "12px",
+                }}
+              >
+                {language === "en" ? "TR" : "EN"}
+              </button>
+
+              <button
+                className={styles.themeBtn}
+                onClick={toggleTheme}
+                style={{
+                  backgroundColor: isDarkMode ? "white" : "#333",
+                  color: isDarkMode ? "#333" : "white",
+                }}
+              >
+                {isDarkMode ? "☀️" : "🌙"}
+              </button>
+            </div>
           </div>
 
           {weather && weather.main && (
@@ -172,13 +199,13 @@ function Weather() {
                   boxShadow: themeStyles.cardShadow,
                 }}
               >
-                <h4 style={{ color: themeStyles.subText }}>Wind</h4>
+                <h4 style={{ color: themeStyles.subText }}>{t.wind}</h4>
                 <h1 style={{ color: themeStyles.textColor }}>
                   {weather.wind.speed}{" "}
                   <span style={{ fontSize: "16px" }}>m/s</span>
                 </h1>
                 <p style={{ color: themeStyles.subText }}>
-                  Direction: {weather.wind.deg}°
+                  {t.direction}: {weather.wind.deg}°
                 </p>
               </div>
 
@@ -189,12 +216,12 @@ function Weather() {
                   boxShadow: themeStyles.cardShadow,
                 }}
               >
-                <h4 style={{ color: themeStyles.subText }}>Humidity</h4>
+                <h4 style={{ color: themeStyles.subText }}>{t.humidity}</h4>
                 <h1 style={{ color: themeStyles.textColor }}>
                   {weather.main.humidity} %
                 </h1>
                 <p style={{ color: themeStyles.subText }}>
-                  {weather.main.humidity > 50 ? "High" : "Low"}
+                  {weather.main.humidity > 50 ? t.high : t.low}
                 </p>
               </div>
 
@@ -205,11 +232,11 @@ function Weather() {
                   boxShadow: themeStyles.cardShadow,
                 }}
               >
-                <h4 style={{ color: themeStyles.subText }}>Feels like</h4>
+                <h4 style={{ color: themeStyles.subText }}>{t.feelsLike}</h4>
                 <h1 style={{ color: themeStyles.textColor }}>
                   {Math.round(weather.main.feels_like)}°
                 </h1>
-                <p style={{ color: themeStyles.subText }}>Temperature</p>
+                <p style={{ color: themeStyles.subText }}>{t.temperature}</p>
               </div>
 
               <div
@@ -219,7 +246,7 @@ function Weather() {
                   boxShadow: themeStyles.cardShadow,
                 }}
               >
-                <h4 style={{ color: themeStyles.subText }}>Pressure</h4>
+                <h4 style={{ color: themeStyles.subText }}>{t.pressure}</h4>
                 <h1 style={{ color: themeStyles.textColor }}>
                   {weather.main.pressure}{" "}
                   <span style={{ fontSize: "16px" }}>hPa</span>
@@ -235,7 +262,9 @@ function Weather() {
                   height: "auto",
                 }}
               >
-                <h4 style={{ color: themeStyles.subText }}>Sunrise & Sunset</h4>
+                <h4 style={{ color: themeStyles.subText }}>
+                  {t.sunrise} & {t.sunset}
+                </h4>
                 <div className={styles.sunContainer}>
                   <div className={styles.sunItem}>
                     <span style={{ fontSize: "22px" }}>☀️</span>
@@ -243,7 +272,7 @@ function Weather() {
                       <p
                         style={{ fontSize: "11px", color: themeStyles.subText }}
                       >
-                        Sunrise
+                        {t.sunrise}
                       </p>
                       <h2
                         style={{
@@ -261,7 +290,7 @@ function Weather() {
                       <p
                         style={{ fontSize: "11px", color: themeStyles.subText }}
                       >
-                        Sunset
+                        {t.sunset}
                       </p>
                       <h2
                         style={{
@@ -287,7 +316,7 @@ function Weather() {
           }}
         >
           <h3 style={{ color: themeStyles.textColor, marginBottom: "20px" }}>
-            Forecast
+            {t.forecast}
           </h3>
           <div className={styles.forecastList}>
             {forecast.map((day, index) => (
@@ -301,9 +330,12 @@ function Weather() {
                 }}
               >
                 <p style={{ color: themeStyles.textColor, fontWeight: "bold" }}>
-                  {new Date(day.dt * 1000).toLocaleDateString("en-US", {
-                    weekday: "short",
-                  })}
+                  {new Date(day.dt * 1000).toLocaleDateString(
+                    language === "tr" ? "tr-TR" : "en-US",
+                    {
+                      weekday: "short",
+                    },
+                  )}
                 </p>
                 <div className={styles.forecastIcon}>
                   <ReactAnimatedWeather
