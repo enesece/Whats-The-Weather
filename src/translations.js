@@ -16,6 +16,13 @@ export const translations = {
     high: "Yüksek",
     temperature: "Sıcaklık",
     noData: "Veri bulunamadı.",
+
+    suggestRain: "Yanına şemsiye almayı unutma! ☔️",
+    suggestSunny: "Güneş kremini sür, hava çok sıcak! ☀️",
+    suggestCold: "Hava oldukça soğuk, sıkı giyin! 🥶",
+    suggestGood: "Dışarı çıkmak için harika bir gün! 😊",
+    suggestSnow: "Kar yağıyor, dikkatli ol! ☃️",
+    suggestWind: "Hava rüzgarlı, uçmamaya çalış! 💨",
   },
   en: {
     searchPlaceholder: "Search...",
@@ -34,5 +41,12 @@ export const translations = {
     high: "High",
     temperature: "Temperature",
     noData: "No Data.",
+
+    suggestRain: "Don't forget your umbrella! ☔️",
+    suggestSunny: "Apply sunscreen, it's very hot! ☀️",
+    suggestCold: "It's quite cold, dress warmly! 🥶",
+    suggestGood: "Great day to go outside! 😊",
+    suggestSnow: "It's snowing, be careful! ☃️",
+    suggestWind: "It's windy, stay safe! 💨",
   },
 };
